@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions name="MyService" targetNamespace="http://mynamespace" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://mynamespace" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsp:Policy wsu:Id="BasicHttpRelayBinding_MyServicePortContract_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <rel:SenderRelayCredential xmlns:rel="http://schemas.microsoft.com/netservices/2009/05/servicebus/connect"/>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://mynamespace" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/Dynamics.Ax.Application"/>
+      <xs:element name="MyServiceFindRequestRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="_args" nillable="true" type="q1:FindRequestArgs" xmlns:q1="http://schemas.datacontract.org/2004/07/Dynamics.Ax.Application"/>
+            <xs:element minOccurs="0" name="_languageID" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="MyServiceFindRequestResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="response" nillable="true" type="q2:ArrayOfMeterReadingRequest" xmlns:q2="http://schemas.datacontract.org/2004/07/Dynamics.Ax.Application"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+      <xs:element name="anyType" nillable="true" type="xs:anyType"/>
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI"/>
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary"/>
+      <xs:element name="boolean" nillable="true" type="xs:boolean"/>
+      <xs:element name="byte" nillable="true" type="xs:byte"/>
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime"/>
+      <xs:element name="decimal" nillable="true" type="xs:decimal"/>
+      <xs:element name="double" nillable="true" type="xs:double"/>
+      <xs:element name="float" nillable="true" type="xs:float"/>
+      <xs:element name="int" nillable="true" type="xs:int"/>
+      <xs:element name="long" nillable="true" type="xs:long"/>
+      <xs:element name="QName" nillable="true" type="xs:QName"/>
+      <xs:element name="short" nillable="true" type="xs:short"/>
+      <xs:element name="string" nillable="true" type="xs:string"/>
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte"/>
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt"/>
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong"/>
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort"/>
+      <xs:element name="char" nillable="true" type="tns:char"/>
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int"/>
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration"/>
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid"/>
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName"/>
+      <xs:attribute name="Id" type="xs:ID"/>
+      <xs:attribute name="Ref" type="xs:IDREF"/>
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Dynamics.Ax.Application" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/Dynamics.Ax.Application">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.Ax.Xpp"/>
+      <xs:complexType name="FindRequestArgs">
+        <xs:complexContent mixed="false">
+          <xs:extension base="q1:XppObjectBase" xmlns:q1="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.Ax.Xpp">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="RequestId" nillable="true" type="xs:string"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="FindRequestArgs" nillable="true" type="tns:FindRequestArgs"/>
+      <xs:complexType name="ITP_DataContract">
+        <xs:complexContent mixed="false">
+          <xs:extension base="q2:XppObjectBase" xmlns:q2="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.Ax.Xpp">
+            <xs:sequence/>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="ITP_DataContract" nillable="true" type="tns:ITP_DataContract"/>
+      <xs:complexType name="EntityPostalAddress">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:ITP_DataContract">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="AttentionToAddressLine" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="AttentionToAddressLine2" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="BuildingCompliment" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="City" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="CountryRegionId" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="County" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="District" type="xs:long"/>
+              <xs:element minOccurs="0" name="DistrictName" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="IsPrimary" type="q3:NoYes" xmlns:q3="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.Ax.Xpp"/>
+              <xs:element minOccurs="0" name="Location" type="xs:long"/>
+              <xs:element minOccurs="0" name="LocationName" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="PostBox" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="PostalAddress" type="xs:long"/>
+              <xs:element minOccurs="0" name="State" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="Street" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="StreetNumber" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="ValidFrom" type="xs:dateTime"/>
+              <xs:element minOccurs="0" name="ValidTo" type="xs:dateTime"/>
+              <xs:element minOccurs="0" name="ZipCode" nillable="true" type="xs:string"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="EntityPostalAddress" nillable="true" type="tns:EntityPostalAddress"/>
+      <xs:complexType name="MeterDataInformation">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:ITP_DataContract">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="MeterDataRegisterInformationList" nillable="true" type="tns:ArrayOfMeterDataRegisterInformation"/>
+              <xs:element minOccurs="0" name="MeterUnitNumber" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="NumberOfRegisters" type="xs:int"/>
+              <xs:element minOccurs="0" name="RegisterID" nillable="true" type="xs:string"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="MeterDataInformation" nillable="true" type="tns:MeterDataInformation"/>
+      <xs:complexType name="ArrayOfMeterDataRegisterInformation">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="MeterDataRegisterInformation" nillable="true" type="tns:MeterDataRegisterInformation"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfMeterDataRegisterInformation" nillable="true" type="tns:ArrayOfMeterDataRegisterInformation"/>
+      <xs:complexType name="MeterDataRegisterInformation">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:ITP_DataContract">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="ConversionFactor" type="xs:decimal"/>
+              <xs:element minOccurs="0" name="EstimatedAnnualVolume" type="xs:decimal"/>
+              <xs:element minOccurs="0" name="MeasuringUnitId" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="MeterRegisterNumber" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="MeterTimeFrame" type="tns:IUS_MPO_MeterTimeFrames"/>
+              <xs:element minOccurs="0" name="MeterTimeFrameDescription" nillable="true" type="xs:string"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="MeterDataRegisterInformation" nillable="true" type="tns:MeterDataRegisterInformation"/>
+      <xs:simpleType name="IUS_MPO_MeterTimeFrames">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="None"/>
+          <xs:enumeration value="MTF_B36_Exclusive_Night"/>
+          <xs:enumeration value="MTF_B37_Total_Hours"/>
+          <xs:enumeration value="MTF_B48_Not_Used"/>
+          <xs:enumeration value="MTF_E10_Low"/>
+          <xs:enumeration value="MTF_E11_High"/>
+          <xs:enumeration value="MTF_E12_Peak"/>
+          <xs:enumeration value="MTF_U00_Default_Time_To_Use"/>
+          <xs:enumeration value="MTF_NPH_None_Peak_High"/>
+          <xs:enumeration value="MTF_NPK_Non_Peak"/>
+          <xs:enumeration value="MTF_NPL_Non_Peak_Low"/>
+          <xs:enumeration value="MTF_PKH_Peak_High"/>
+          <xs:enumeration value="MTF_PKL_Peak_Low"/>
+          <xs:enumeration value="MTF_AMR_Defined"/>
+          <xs:enumeration value="MTF_Mm3"/>
+          <xs:enumeration value="MTF_T10_Low_Injection"/>
+          <xs:enumeration value="MTF_T11_High_Injection"/>
+          <xs:enumeration value="MTF_Cogeneration"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="IUS_MPO_MeterTimeFrames" nillable="true" type="tns:IUS_MPO_MeterTimeFrames"/>
+      <xs:complexType name="MeterReadingRequest">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:ITP_DataContract">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="CustAccountNum" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="MPODeliveryType" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="MPOEANCode" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="MPOMeteringPointId" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="MeterDataInformationList" nillable="true" type="tns:ArrayOfMeterDataInformation"/>
+              <xs:element minOccurs="0" name="PostalAddress" nillable="true" type="tns:EntityPostalAddress"/>
+              <xs:element minOccurs="0" name="Request" nillable="true" type="tns:MeterRequests"/>
+              <xs:element minOccurs="0" name="RequestType" type="tns:IUS_MRD_MeterReadingRequestType"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="MeterReadingRequest" nillable="true" type="tns:MeterReadingRequest"/>
+      <xs:complexType name="ArrayOfMeterDataInformation">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="MeterDataInformation" nillable="true" type="tns:MeterDataInformation"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfMeterDataInformation" nillable="true" type="tns:ArrayOfMeterDataInformation"/>
+      <xs:complexType name="MeterRequests">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:ITP_DataContract">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="Channel" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="DateReceived" type="xs:dateTime"/>
+              <xs:element minOccurs="0" name="DateRequest" type="xs:dateTime"/>
+              <xs:element minOccurs="0" name="DateRequestCreated" type="xs:dateTime"/>
+              <xs:element minOccurs="0" name="DeliveryPoint" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="Group" type="xs:long"/>
+              <xs:element minOccurs="0" name="RecId" type="xs:long"/>
+              <xs:element minOccurs="0" name="Receiver" type="xs:long"/>
+              <xs:element minOccurs="0" name="RequestGenerationLogRefRecId" type="xs:long"/>
+              <xs:element minOccurs="0" name="RequestId" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="RequestedDateTime" type="xs:dateTime"/>
+              <xs:element minOccurs="0" name="Status" type="tns:IUS_MRD_Status"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="MeterRequests" nillable="true" type="tns:MeterRequests"/>
+      <xs:simpleType name="IUS_MRD_Status">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="None"/>
+          <xs:enumeration value="Pending"/>
+          <xs:enumeration value="Requested"/>
+          <xs:enumeration value="Received"/>
+          <xs:enumeration value="Rescheduled"/>
+          <xs:enumeration value="Failed"/>
+          <xs:enumeration value="Estimated"/>
+          <xs:enumeration value="Created"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="IUS_MRD_Status" nillable="true" type="tns:IUS_MRD_Status"/>
+      <xs:simpleType name="IUS_MRD_MeterReadingRequestType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="None"/>
+          <xs:enumeration value="Event"/>
+          <xs:enumeration value="NonEvent"/>
+          <xs:enumeration value="SCC"/>
+          <xs:enumeration value="StatementCreation"/>
+          <xs:enumeration value="AgreementTermination"/>
+          <xs:enumeration value="PeriodicReading"/>
+          <xs:enumeration value="PredefinedReadingDate"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="IUS_MRD_MeterReadingRequestType" nillable="true" type="tns:IUS_MRD_MeterReadingRequestType"/>
+      <xs:complexType name="ArrayOfMeterReadingRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="MeterReadingRequest" nillable="true" type="tns:MeterReadingRequest"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfMeterReadingRequest" nillable="true" type="tns:ArrayOfMeterReadingRequest"/>
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.Ax.Xpp" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.Ax.Xpp">
+      <xs:complexType name="XppObjectBase">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:element name="XppObjectBase" nillable="true" type="tns:XppObjectBase"/>
+      <xs:simpleType name="NoYes">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="No"/>
+          <xs:enumeration value="Yes"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="NoYes" nillable="true" type="tns:NoYes"/>
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/dynamics/2010/01/datacontracts" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/dynamics/2010/01/datacontracts">
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+      <xs:complexType name="CallContext">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Company" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="Language" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="LogonAsUser" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="MessageId" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="PartitionKey" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="PropertyBag" nillable="true" type="q1:ArrayOfKeyValueOfstringstring" xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CallContext" nillable="true" type="tns:CallContext"/>
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+      <xs:complexType name="ArrayOfKeyValueOfstringstring">
+        <xs:annotation>
+          <xs:appinfo>
+            <IsDictionary xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsDictionary>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueOfstringstring">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Key" nillable="true" type="xs:string"/>
+                <xs:element name="Value" nillable="true" type="xs:string"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfKeyValueOfstringstring" nillable="true" type="tns:ArrayOfKeyValueOfstringstring"/>
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/dynamics/2008/01/documents/Fault" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/dynamics/2008/01/documents/Fault">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.AX.Framework.Services"/>
+      <xs:complexType name="AifFault">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CustomDetailXml" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="FaultMessageListArray" nillable="true" type="tns:ArrayOfFaultMessageList"/>
+          <xs:element minOccurs="0" name="InfologMessageList" nillable="true" type="q1:ArrayOfInfologMessage" xmlns:q1="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.AX.Framework.Services"/>
+          <xs:element minOccurs="0" name="StackTrace" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="XppExceptionType" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="AifFault" nillable="true" type="tns:AifFault"/>
+      <xs:complexType name="ArrayOfFaultMessageList">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="FaultMessageList" nillable="true" type="tns:FaultMessageList"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfFaultMessageList" nillable="true" type="tns:ArrayOfFaultMessageList"/>
+      <xs:complexType name="FaultMessageList">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Document" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="DocumentOperation" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="FaultMessageArray" nillable="true" type="tns:ArrayOfFaultMessage"/>
+          <xs:element minOccurs="0" name="Field" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="Service" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="ServiceOperation" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="ServiceOperationParameter" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="XPath" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="XmlLine" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="XmlPosition" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="FaultMessageList" nillable="true" type="tns:FaultMessageList"/>
+      <xs:complexType name="ArrayOfFaultMessage">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="FaultMessage" nillable="true" type="tns:FaultMessage"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfFaultMessage" nillable="true" type="tns:ArrayOfFaultMessage"/>
+      <xs:complexType name="FaultMessage">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="FaultMessage" nillable="true" type="tns:FaultMessage"/>
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.AX.Framework.Services" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.AX.Framework.Services">
+      <xs:complexType name="ArrayOfInfologMessage">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="InfologMessage" nillable="true" type="tns:InfologMessage"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfInfologMessage" nillable="true" type="tns:ArrayOfInfologMessage"/>
+      <xs:complexType name="InfologMessage">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="InfologMessageType" type="tns:InfologMessageType"/>
+          <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="InfologMessage" nillable="true" type="tns:InfologMessage"/>
+      <xs:simpleType name="InfologMessageType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Info"/>
+          <xs:enumeration value="Warning"/>
+          <xs:enumeration value="Error"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="InfologMessageType" nillable="true" type="tns:InfologMessageType"/>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="MyServiceFindRequestRequest">
+    <wsdl:part name="parameters" element="tns:MyServiceFindRequestRequest"/>
+  </wsdl:message>
+  <wsdl:message name="MyServiceFindRequestRequest_Headers">
+    <wsdl:part name="CallContext" element="q1:CallContext" xmlns:q1="http://schemas.microsoft.com/dynamics/2010/01/datacontracts"/>
+  </wsdl:message>
+  <wsdl:message name="MyServiceFindRequestResponse">
+    <wsdl:part name="parameters" element="tns:MyServiceFindRequestResponse"/>
+  </wsdl:message>
+  <wsdl:message name="MyServicePortContract_FindRequest_AifFault_FaultMessage">
+    <wsdl:part name="detail" element="q2:AifFault" xmlns:q2="http://schemas.microsoft.com/dynamics/2008/01/documents/Fault"/>
+  </wsdl:message>
+  <wsdl:portType name="MyServicePortContract">
+    <wsdl:operation name="FindRequest">
+      <wsdl:input wsaw:Action="http://mynamespace/MyService/FindRequest" name="MyServiceFindRequestRequest" message="tns:MyServiceFindRequestRequest"/>
+      <wsdl:output wsaw:Action="http://mynamespace/MyService/FindRequestResponse" name="MyServiceFindRequestResponse" message="tns:MyServiceFindRequestResponse"/>
+      <wsdl:fault wsaw:Action="http://mynamespace/MyService/FindRequestAifFaultFault" name="AifFault" message="tns:MyServicePortContract_FindRequest_AifFault_FaultMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpRelayBinding_MyServicePortContract" type="tns:MyServicePortContract">
+    <wsp:PolicyReference URI="#BasicHttpRelayBinding_MyServicePortContract_policy"/>
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="FindRequest">
+      <soap:operation soapAction="http://mynamespace/MyService/FindRequest" style="document"/>
+      <wsdl:input name="MyServiceFindRequestRequest">
+        <soap:header message="tns:MyServiceFindRequestRequest_Headers" part="CallContext" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="MyServiceFindRequestResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AifFault">
+        <soap:fault use="literal" name="AifFault" namespace=""/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MyService">
+    <wsdl:port name="BasicHttpRelayBinding_MyServicePortContract" binding="tns:BasicHttpRelayBinding_MyServicePortContract">
+      <soap:address location="https://dwgpoctest.servicebus.windows.net/dwgpocrelay"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
