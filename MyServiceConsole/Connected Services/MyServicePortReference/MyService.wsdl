@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:i0="http://mynamespace" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MyService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpRelayBinding_MyServicePortContract_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <rel:SenderRelayCredential xmlns:rel="http://schemas.microsoft.com/netservices/2009/05/servicebus/connect" />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:import namespace="http://mynamespace" location="http://dev-vm/mex?wsdl=wsdl0" />
+  <wsdl:types />
+  <wsdl:binding name="BasicHttpRelayBinding_MyServicePortContract" type="i0:MyServicePortContract">
+    <wsp:PolicyReference URI="#BasicHttpRelayBinding_MyServicePortContract_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="FindRequest">
+      <soap:operation soapAction="http://mynamespace/MyService/FindRequest" style="document" />
+      <wsdl:input name="MyServiceFindRequestRequest">
+        <soap:header message="i0:MyServiceFindRequestRequest_Headers" part="CallContext" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="MyServiceFindRequestResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="AifFault">
+        <soap:fault use="literal" name="AifFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MyService">
+    <wsdl:port name="BasicHttpRelayBinding_MyServicePortContract" binding="tns:BasicHttpRelayBinding_MyServicePortContract">
+      <soap:address location="https://dwgpoctest.servicebus.windows.net/dwgpocrelay" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
